@@ -345,21 +345,83 @@ function restartQuiz() {
 function shareOnTwitter() {
     const text = `3分でわかる！"わたし診断"で自分の個性を発見しました！あなたも試してみませんか？`;
     const url = encodeURIComponent(window.location.href);
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`;
-    window.open(twitterUrl, '_blank');
+    const hashtags = 'わたし診断,個性診断,自己分析';
+    const twitterUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}&hashtags=${encodeURIComponent(hashtags)}`;
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
 }
 
 function shareOnInstagram() {
-    // Instagram Stories sharing (requires mobile app)
-    const text = `3分でわかる！"わたし診断"で自分の個性を発見しました！`;
-    const instagramUrl = `instagram-stories://share?text=${encodeURIComponent(text)}`;
+    // Instagram doesn't support direct URL sharing from web
+    // Copy text to clipboard and open Instagram
+    const text = `3分でわかる！"わたし診断"で自分の個性を発見しました！\n\n${window.location.href}\n\n#わたし診断 #個性診断 #自己分析`;
     
-    // Fallback to regular Instagram if Stories not available
-    try {
-        window.open(instagramUrl, '_blank');
-    } catch (error) {
-        window.open('https://www.instagram.com/', '_blank');
+    // Try to copy to clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('テキストをクリップボードにコピーしました！\nInstagramアプリでストーリーズに投稿してください。');
+        }).catch(() => {
+            // Fallback for clipboard failure
+            promptForManualCopy(text);
+        });
+    } else {
+        // Fallback for older browsers
+        promptForManualCopy(text);
     }
+    
+    // Open Instagram (mobile app if available, web if not)
+    setTimeout(() => {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            window.location.href = 'instagram://';
+            // Fallback to web if app not installed
+            setTimeout(() => {
+                window.open('https://www.instagram.com/', '_blank');
+            }, 1000);
+        } else {
+            window.open('https://www.instagram.com/', '_blank');
+        }
+    }, 500);
+}
+
+function promptForManualCopy(text) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: rgba(0,0,0,0.5); display: flex; align-items: center; 
+        justify-content: center; z-index: 10000;
+    `;
+    
+    const content = document.createElement('div');
+    content.style.cssText = `
+        background: white; padding: 30px; border-radius: 15px; 
+        max-width: 90%; max-height: 80%; overflow-y: auto;
+        text-align: center; font-family: 'Nunito', sans-serif;
+    `;
+    
+    content.innerHTML = `
+        <h3 style="margin-bottom: 20px; color: #333;">Instagram用テキスト</h3>
+        <textarea readonly style="width: 100%; height: 150px; padding: 10px; border: 2px solid #FF8B72; border-radius: 10px; font-size: 14px; resize: none;">${text}</textarea>
+        <p style="margin: 15px 0; color: #666; font-size: 14px;">上記のテキストをコピーして、Instagramのストーリーズでシェアしてください</p>
+        <button style="background: linear-gradient(45deg, #FF8B72, #FFB74D); color: white; border: none; padding: 12px 25px; border-radius: 25px; font-size: 16px; font-weight: 600; cursor: pointer;">閉じる</button>
+    `;
+    
+    modal.appendChild(content);
+    document.body.appendChild(modal);
+    
+    // Select text in textarea
+    const textarea = content.querySelector('textarea');
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // For mobile devices
+    
+    // Close modal
+    content.querySelector('button').onclick = () => {
+        document.body.removeChild(modal);
+    };
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    };
 }
 
 // Review Carousel

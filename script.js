@@ -9,11 +9,11 @@ const QUESTIONS = [
         text: "最近、家族やパートナーと気持ちがすれ違ってモヤッとする？",
         type: "likert",
         options: [
-            { text: "😄 全然ない", value: 0 },
-            { text: "😊 あまりない", value: 1 },
-            { text: "😐 普通", value: 2 },
-            { text: "😟 よくある", value: 3 },
-            { text: "😫 頻繁にある", value: 4 }
+            { text: "全然ない", value: 0 },
+            { text: "あまりない", value: 1 },
+            { text: "普通", value: 2 },
+            { text: "よくある", value: 3 },
+            { text: "頻繁にある", value: 4 }
         ]
     },
     {
@@ -41,11 +41,11 @@ const QUESTIONS = [
         text: "自分の強みや役割がぼんやりして選択に迷いがち？",
         type: "likert",
         options: [
-            { text: "😄 全然迷わない", value: 0 },
-            { text: "😊 あまり迷わない", value: 1 },
-            { text: "😐 普通", value: 2 },
-            { text: "😟 よく迷う", value: 3 },
-            { text: "😫 いつも迷う", value: 4 }
+            { text: "全然迷わない", value: 0 },
+            { text: "あまり迷わない", value: 1 },
+            { text: "普通", value: 2 },
+            { text: "よく迷う", value: 3 },
+            { text: "いつも迷う", value: 4 }
         ]
     },
     {
@@ -74,12 +74,12 @@ const QUESTIONS = [
         text: "感情が爆発してあとで自己嫌悪…最近そんなシーンが？",
         type: "multiple",
         options: [
-            { text: "😌 全くない", value: 0 },
-            { text: "😅 たまにある", value: 1 },
-            { text: "😰 月に数回", value: 2 },
-            { text: "😤 週に数回", value: 3 },
-            { text: "😭 頻繁にある", value: 4 },
-            { text: "💥 ほぼ毎日", value: 5 }
+            { text: "全くない", value: 0 },
+            { text: "たまにある", value: 1 },
+            { text: "月に数回", value: 2 },
+            { text: "週に数回", value: 3 },
+            { text: "頻繁にある", value: 4 },
+            { text: "ほぼ毎日", value: 5 }
         ]
     }
 ];
@@ -114,11 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
     startReviewCarousel();
 });
 
-// Load hero image - use a colorful manual/guide style image
+// Load hero image - use a pop and cute image
 function loadHeroImage() {
-    // Use a colorful manual/guide style image
-    heroImg.src = 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop';
-    heroImg.alt = '診断ガイドのイメージ';
+    // Use a colorful, pop, and exciting image
+    heroImg.src = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=250&fit=crop';
+    heroImg.alt = 'わくわく診断のイメージ';
     
     // Fallback if image fails to load
     heroImg.onerror = function() {

@@ -98,8 +98,6 @@ const progressBar = document.getElementById('progress-bar');
 const questionCounter = document.getElementById('question-counter');
 const questionText = document.getElementById('question-text');
 const optionsContainer = document.getElementById('options-container');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
 const rankBadge = document.getElementById('rank-badge');
 const resultTitle = document.getElementById('result-title');
 const resultMessage = document.getElementById('result-message');
@@ -152,8 +150,6 @@ function setFallbackImage() {
 // Event Listeners
 function setupEventListeners() {
     startBtn.addEventListener('click', startQuiz);
-    prevBtn.addEventListener('click', previousQuestion);
-    nextBtn.addEventListener('click', nextQuestion);
     restartBtn.addEventListener('click', restartQuiz);
     shareTwitter.addEventListener('click', shareOnTwitter);
     shareInstagram.addEventListener('click', shareOnInstagram);
@@ -236,70 +232,27 @@ function displayQuestion() {
     // Create options based on question type
     createOptions(question);
     
-    // Update navigation buttons
-    updateNavigationButtons();
-    
     // Save progress
     saveProgress();
 }
 
 function createOptions(question) {
     const container = optionsContainer;
+    container.className = 'options-container';
     
-    switch (question.type) {
-        case 'likert':
-            container.className = 'options-container likert-container';
-            question.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'option likert-option';
-                btn.textContent = option.text;
-                btn.dataset.value = option.value;
-                btn.addEventListener('click', () => selectOption(index, option.value));
-                container.appendChild(btn);
-            });
-            break;
-            
-        case 'multiple':
-            container.className = 'options-container';
-            question.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'option';
-                btn.textContent = option.text;
-                btn.dataset.value = option.value;
-                btn.addEventListener('click', () => selectOption(index, option.value));
-                container.appendChild(btn);
-            });
-            break;
-            
-        case 'yesno':
-            container.className = 'options-container';
-            question.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'option';
-                btn.textContent = option.text;
-                btn.dataset.value = option.value;
-                btn.addEventListener('click', () => selectOption(index, option.value));
-                container.appendChild(btn);
-            });
-            break;
-            
-        case 'emoji':
-            container.className = 'options-container emoji-container';
-            question.options.forEach((option, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'emoji-option';
-                btn.textContent = option.text;
-                btn.dataset.value = option.value;
-                btn.addEventListener('click', () => selectOption(index, option.value));
-                container.appendChild(btn);
-            });
-            break;
-    }
+    question.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.textContent = option.text;
+        btn.dataset.value = option.value;
+        btn.addEventListener('click', () => selectOption(index, option.value));
+        container.appendChild(btn);
+    });
     
     // Restore previous selection if exists
     if (answers[currentQuestion] !== undefined) {
         const selectedIndex = answers[currentQuestion].selectedIndex;
-        const options = container.querySelectorAll('.option, .emoji-option, .likert-option');
+        const options = container.querySelectorAll('.option');
         if (options[selectedIndex]) {
             options[selectedIndex].classList.add('selected');
         }
@@ -312,7 +265,7 @@ function selectOption(selectedIndex, value) {
     }
     
     // Clear previous selections
-    const options = optionsContainer.querySelectorAll('.option, .emoji-option, .likert-option');
+    const options = optionsContainer.querySelectorAll('.option');
     options.forEach(option => option.classList.remove('selected'));
     
     // Mark selected option
@@ -324,49 +277,19 @@ function selectOption(selectedIndex, value) {
         value
     };
     
-    // Enable next button
-    nextBtn.classList.remove('disabled');
-    
-    // Auto-advance for emoji type after a short delay
-    if (QUESTIONS[currentQuestion].type === 'emoji') {
-        setTimeout(() => {
-            if (currentQuestion < QUESTIONS.length - 1) {
-                nextQuestion();
-            } else {
-                finishQuiz();
-            }
-        }, 800);
-    }
-    
     saveProgress();
-}
-
-function updateNavigationButtons() {
-    // Previous button
-    if (currentQuestion === 0) {
-        prevBtn.classList.add('disabled');
-    } else {
-        prevBtn.classList.remove('disabled');
-    }
     
-    // Next button
-    if (answers[currentQuestion] !== undefined) {
-        nextBtn.classList.remove('disabled');
-    } else {
-        nextBtn.classList.add('disabled');
-    }
-    
-    // Update next button text
-    if (currentQuestion === QUESTIONS.length - 1) {
-        nextBtn.textContent = '結果を見る →';
-    } else {
-        nextBtn.textContent = '次へ →';
-    }
+    // Auto-advance to next question after a short delay
+    setTimeout(() => {
+        if (currentQuestion < QUESTIONS.length - 1) {
+            nextQuestion();
+        } else {
+            finishQuiz();
+        }
+    }, 600);
 }
 
 function nextQuestion() {
-    if (answers[currentQuestion] === undefined) return;
-    
     if (navigator.vibrate) {
         navigator.vibrate(30);
     }
@@ -376,16 +299,6 @@ function nextQuestion() {
         displayQuestion();
     } else {
         finishQuiz();
-    }
-}
-
-function previousQuestion() {
-    if (currentQuestion > 0) {
-        if (navigator.vibrate) {
-            navigator.vibrate(30);
-        }
-        currentQuestion--;
-        displayQuestion();
     }
 }
 
@@ -509,36 +422,11 @@ document.addEventListener('touchend', (e) => {
 });
 
 function handleSwipe() {
-    const swipeThreshold = 50;
-    const swipeDistance = touchEndX - touchStartX;
-    
-    if (Math.abs(swipeDistance) > swipeThreshold) {
-        if (quizScreen.classList.contains('active')) {
-            if (swipeDistance > 0 && currentQuestion > 0) {
-                // Swipe right - go to previous question
-                previousQuestion();
-            } else if (swipeDistance < 0 && currentQuestion < QUESTIONS.length - 1 && answers[currentQuestion] !== undefined) {
-                // Swipe left - go to next question
-                nextQuestion();
-            }
-        }
-    }
+    // Swipe functionality disabled for cleaner UX
 }
 
 // Keyboard Support
 document.addEventListener('keydown', (e) => {
-    if (quizScreen.classList.contains('active')) {
-        if (e.key === 'ArrowLeft' && currentQuestion > 0) {
-            previousQuestion();
-        } else if (e.key === 'ArrowRight' && answers[currentQuestion] !== undefined) {
-            if (currentQuestion < QUESTIONS.length - 1) {
-                nextQuestion();
-            } else {
-                finishQuiz();
-            }
-        }
-    }
-    
     if (e.key === 'Escape') {
         if (quizScreen.classList.contains('active') || resultScreen.classList.contains('active')) {
             restartQuiz();

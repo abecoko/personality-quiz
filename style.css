@@ -205,97 +205,7 @@ body {
     transform: scale(1.02);
 }
 
-/* Likert Scale */
-.likert-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
 
-.likert-option {
-    flex: 1;
-    min-width: 60px;
-    padding: 15px 10px;
-    font-size: 0.9rem;
-}
-
-.likert-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    font-size: 0.8rem;
-    color: #666;
-}
-
-/* Emoji Options */
-.emoji-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.emoji-option {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    background: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 3px solid transparent;
-}
-
-.emoji-option:hover {
-    transform: scale(1.1);
-}
-
-.emoji-option.selected {
-    background: linear-gradient(45deg, #FF8B72, #FFB74D);
-    border-color: #FF6B35;
-    transform: scale(1.15);
-}
-
-/* Quiz Navigation */
-.quiz-navigation {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.nav-btn {
-    flex: 1;
-    padding: 15px 25px;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: 'Nunito', sans-serif;
-}
-
-.nav-btn:not(.disabled) {
-    background: linear-gradient(45deg, #FF8B72, #FFB74D);
-    color: white;
-    box-shadow: 0 5px 15px rgba(255, 139, 114, 0.4);
-}
-
-.nav-btn:not(.disabled):hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 139, 114, 0.6);
-}
-
-.nav-btn.disabled {
-    background: rgba(255, 255, 255, 0.5);
-    color: #999;
-    cursor: not-allowed;
-}
 
 /* Result Screen */
 #result-screen {
@@ -546,21 +456,6 @@ body {
         min-height: 350px;
     }
     
-    .likert-container {
-        gap: 5px;
-    }
-    
-    .likert-option {
-        min-width: 50px;
-        padding: 12px 8px;
-        font-size: 0.8rem;
-    }
-    
-    .emoji-option {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-    }
     
     .share-buttons {
         flex-direction: column;

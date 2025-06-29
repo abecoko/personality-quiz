@@ -72,14 +72,14 @@ const QUESTIONS = [
     {
         id: 7,
         text: "感情が爆発してあとで自己嫌悪…最近そんなシーンが？",
-        type: "emoji",
+        type: "multiple",
         options: [
-            { text: "😌", value: 0 },
-            { text: "😅", value: 1 },
-            { text: "😰", value: 2 },
-            { text: "😤", value: 3 },
-            { text: "😭", value: 4 },
-            { text: "💥", value: 5 }
+            { text: "😌 全くない", value: 0 },
+            { text: "😅 たまにある", value: 1 },
+            { text: "😰 月に数回", value: 2 },
+            { text: "😤 週に数回", value: 3 },
+            { text: "😭 頻繁にある", value: 4 },
+            { text: "💥 ほぼ毎日", value: 5 }
         ]
     }
 ];
@@ -115,28 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
     startReviewCarousel();
 });
 
-// Load hero image from Pexels
-async function loadHeroImage() {
-    try {
-        const response = await fetch(`https://api.pexels.com/v1/search?query=personality&per_page=1&page=${Math.floor(Math.random() * 10) + 1}`, {
-            headers: {
-                'Authorization': PEXELS_API_KEY
-            }
-        });
-        
-        if (response.ok) {
-            const data = await response.json();
-            if (data.photos && data.photos.length > 0) {
-                heroImg.src = data.photos[0].src.medium;
-            } else {
-                setFallbackImage();
-            }
-        } else {
-            setFallbackImage();
-        }
-    } catch (error) {
+// Load hero image - use a default image
+function loadHeroImage() {
+    // Use a placeholder image service that doesn't require API key
+    heroImg.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=face';
+    heroImg.alt = '個性診断のイメージ';
+    
+    // Fallback if image fails to load
+    heroImg.onerror = function() {
         setFallbackImage();
-    }
+    };
 }
 
 function setFallbackImage() {
@@ -145,6 +133,7 @@ function setFallbackImage() {
     heroImg.style.alignItems = 'center';
     heroImg.style.justifyContent = 'center';
     heroImg.innerHTML = '<div style="color: white; font-size: 3rem;">🎯</div>';
+    heroImg.src = '';
 }
 
 // Event Listeners

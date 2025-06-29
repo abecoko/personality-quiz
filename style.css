@@ -447,8 +447,7 @@ body {
     }
     
     .share-buttons {
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
     }
     
     .share-btn {

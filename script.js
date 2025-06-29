@@ -115,11 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
     startReviewCarousel();
 });
 
-// Load hero image - use a default image
+// Load hero image - use a colorful manual/guide style image
 function loadHeroImage() {
-    // Use a placeholder image service that doesn't require API key
-    heroImg.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop&crop=face';
-    heroImg.alt = '個性診断のイメージ';
+    // Use a colorful manual/guide style image
+    heroImg.src = 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop';
+    heroImg.alt = '診断ガイドのイメージ';
     
     // Fallback if image fails to load
     heroImg.onerror = function() {
@@ -132,7 +132,7 @@ function setFallbackImage() {
     heroImg.style.display = 'flex';
     heroImg.style.alignItems = 'center';
     heroImg.style.justifyContent = 'center';
-    heroImg.innerHTML = '<div style="color: white; font-size: 3rem;">🎯</div>';
+    heroImg.innerHTML = '<div style="color: white; font-size: 2.5rem; text-align: center;">📋✨<br><span style="font-size: 1rem;">診断ガイド</span></div>';
     heroImg.src = '';
 }
 

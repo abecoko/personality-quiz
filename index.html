@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3分でわかる！"わたし診断"</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-content">
+            <div class="hero-image">
+                <img id="hero-img" src="" alt="個性診断のイメージ" class="hero-photo">
+            </div>
+            <h1 class="title">3分でわかる！<br>"わたし診断"</h1>
+            <p class="subtitle">質問にポンポン答えるだけ<br>スマホ片手にサクッと自己発見</p>
+            <button id="start-btn" class="cta-button bounce">
+                スタート ▶︎
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen" class="screen">
+        <div class="quiz-header">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <span class="question-counter" id="question-counter">1 / 7</span>
+        </div>
+        
+        <div class="quiz-content">
+            <div class="question-card" id="question-card">
+                <h2 class="question-text" id="question-text"></h2>
+                <div class="options-container" id="options-container"></div>
+            </div>
+            
+            <div class="quiz-navigation">
+                <button id="prev-btn" class="nav-btn disabled">← 前へ</button>
+                <button id="next-btn" class="nav-btn disabled">次へ →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen">
+        <div class="result-content">
+            <div class="rank-badge" id="rank-badge"></div>
+            <h2 class="result-title" id="result-title"></h2>
+            <p class="result-message" id="result-message"></p>
+            
+            <div class="cta-section">
+                <a href="#" id="line-cta" class="line-button">
+                    📱 無料LINE相談で"個性地図"を受け取る ▶︎
+                </a>
+            </div>
+
+            <!-- Customer Reviews Carousel -->
+            <div class="reviews-section">
+                <h3>お客様の声</h3>
+                <div class="reviews-carousel" id="reviews-carousel">
+                    <div class="review-card active">
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p>"自分の強みが明確になって、仕事での自信が全然違います！"</p>
+                        <span class="reviewer">- 会社員 Aさん</span>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p>"家族との関係が改善されて、毎日が楽しくなりました。"</p>
+                        <span class="reviewer">- 主婦 Bさん</span>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+                        <p>"迷いがなくなって、人生の方向性が見えてきました！"</p>
+                        <span class="reviewer">- フリーランス Cさん</span>
+                    </div>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
+            </div>
+
+            <!-- Social Share -->
+            <div class="share-section">
+                <h3>結果をシェア</h3>
+                <div class="share-buttons">
+                    <button class="share-btn twitter" id="share-twitter">
+                        🐦 Xでシェア
+                    </button>
+                    <button class="share-btn instagram" id="share-instagram">
+                        📸 Instagramでシェア
+                    </button>
+                </div>
+            </div>
+
+            <button id="restart-btn" class="restart-button">
+                もう一度診断する
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>※ この診断は医療行為ではありません。参考程度にお楽しみください。</p>
+        <p>&copy; 2024 わたし診断. Licensed under CC BY-SA</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
